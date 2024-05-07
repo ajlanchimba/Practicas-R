@@ -1,0 +1,65 @@
+---
+title: "RETOS EN R"
+author: "Alexis Lanchimba"
+format: html
+editor: visual
+---
+
+## RETO 1
+
+Tu tarea es crear una función que pueda recibir cualquier número entero no negativo como argumento y devolverlo con sus dígitos en orden descendente. Básicamente, reorganizar los dígitos para crear el número más alto posible.
+
+**Examples:**
+
+Input: `42145` Output: `54421`
+
+Input: `145263` Output: `654321`
+
+Input: `123456789` Output: `987654321`
+
+La función debe ser capaz de manejar cualquier valor entero no negativo, por lo que no es necesario que la función se encargue de números negativos.
+`as.character()`: convierte un número a un string.
+
+`strsplit()`: divide un string en subcadenas(lista), especificando un separador `""`.
+
+`unlist()`: convierte una lista en un vector.
+
+`as.numeric()`: convierte un string en un número.
+
+`sort()`: ordena un vector. El argumento `decreasing = TRUE` ordena el vector en orden descendente.
+
+`paste()`: concatena los elementos de un vector en un solo string. `collapse = ""`: especifica el separador entre los elementos concatenados.
+
+`as.numeric()`: convierte un string en un número.
+
+```{r} 
+#| label: Reto 1 
+descending_order <- function(num){
+  numeros <- num |> as.character() |> strsplit(split = "") |> unlist() |> as.numeric()
+  
+  ord_desc_numeros <- numeros |> sort(decreasing = TRUE) |> paste(collapse = "") 
+  resultado <- as.numeric(ord_desc_numeros)
+  return(resultado)
+}
+
+descending_order(15069) #96510
+class(descending_order(15069))
+```
+```{r}
+descending_order <- function(num) {
+  # Convertimos el número en un vector de dígitos
+  digits <- as.numeric(unlist(strsplit(as.character(num), "")))
+  # Ordenamos los dígitos en orden descendente
+  sorted_digits <- sort(digits, decreasing = TRUE)
+  # Convertimos el vector de dígitos nuevamente en un número
+  result <- as.numeric(paste(sorted_digits, collapse = ""))
+  return(result)
+}
+
+# Ejemplo de uso
+numero <- 456789
+resultado <- descending_order(numero)
+print(paste("El número con sus dígitos en orden descendente es:", resultado))
+
+```
+
